@@ -765,32 +765,17 @@ div[data-name="jacket"] {{
   background-color: #000000 !important;
 }}
 
-/* Position Made by Gurdharam in opposite bottom corner to copyright */
+/* Authentic Forge Menu aperture stacking: nav sits behind page */
+nav#site-menu {{
+  z-index: 0 !important;
+}}
+main#page {{
+  z-index: 1 !important;
+}}
+
+/* Hide powered by WRPD so bottom-left has Copyright and bottom-right has Made by Gurdharam */
 nav#site-menu [data-name="powered"] {{
-  position: absolute !important;
-  bottom: 0 !important;
-  right: var(--offset, 4rem) !important;
-  left: auto !important;
-  text-align: right !important;
-  margin: 0 !important;
-}}
-
-nav#site-menu [data-name="copyright"] {{
-  position: absolute !important;
-  bottom: 0 !important;
-  left: var(--offset, 4rem) !important;
-  right: auto !important;
-  text-align: left !important;
-  margin: 0 !important;
-}}
-
-@media (max-width: 768px) {{
-  nav#site-menu [data-name="powered"] {{
-    right: 2rem !important;
-  }}
-  nav#site-menu [data-name="copyright"] {{
-    left: 2rem !important;
-  }}
+  display: none !important;
 }}
 </style>
 """
@@ -818,6 +803,7 @@ RUNTIME_HEAD_INJECTION = f"""
     visibility: visible !important;
   }}
 </style>
+<link rel="prefetch" href="{BASE_PATH}/_next/static/chunks/40ga6wtcxfway.js" as="script">
 <script id="gh-pages-base">
 (function() {{
   window.__BASE_PATH__ = '{BASE_PATH}';
@@ -1013,8 +999,9 @@ RUNTIME_HEAD_INJECTION = f"""
   }};
 
   function cleanCredits() {{
-    const powered = document.querySelectorAll('[data-name="powered"], a[aria-label="Navigate to WRPD"], a[aria-label="Made by Gurdharam"]');
-    powered.forEach(function(el) {{
+    const siteby = document.querySelectorAll('[data-name="siteby"]');
+    siteby.forEach(function(el) {{
+      if (el.style.display === 'none') el.style.display = '';
       const a = el.tagName === 'A' ? el : el.querySelector('a');
       if (a) {{
         if (a.href !== 'https://gurdharam.com/' && a.href !== 'https://gurdharam.com') {{
@@ -1032,8 +1019,8 @@ RUNTIME_HEAD_INJECTION = f"""
         }}
       }}
     }});
-    const siteby = document.querySelectorAll('[data-name="siteby"]');
-    siteby.forEach(function(el) {{
+    const powered = document.querySelectorAll('[data-name="powered"]');
+    powered.forEach(function(el) {{
       if (el.style.display !== 'none') el.style.display = 'none';
     }});
     const headerHome = document.querySelector('a[aria-label*="home"].glWlYP, a[aria-label*="Forge home"]');
@@ -1460,43 +1447,33 @@ if os.path.exists(turbo_path):
         f.write(t_code)
     print("Patched turbopack chunk base path")
 
-# Menu credits update: replace Powered by WRPD with Made by Gurdharam and position in opposite corner
+# Menu chunk: restore authentic original_40ga.js with z-index: 0 and patch Made by Gurdharam
+original_40ga_path = os.path.join(DEST_DIR, 'original_40ga.js')
 menu_chunk_path = os.path.join(DEST_DIR, '_next/static/chunks/40ga6wtcxfway.js')
-if os.path.exists(menu_chunk_path):
+if os.path.exists(original_40ga_path):
+    shutil.copyfile(original_40ga_path, menu_chunk_path)
     with open(menu_chunk_path, 'r', encoding='utf-8') as f:
         m_code = f.read()
-    target_start = m_code.find('r[1]===Symbol.for("react.memo_cache_sentinel")?(a=(0,t.jsx)("p",{"data-name":"powered"')
-    if target_start != -1:
-        target_end = m_code.find(',r[2]=n):n=r[2],n', target_start)
-        if target_end != -1:
-            target_end += len(',r[2]=n):n=r[2],n')
-            new_credits = 'r[1]===Symbol.for("react.memo_cache_sentinel")?(a=(0,t.jsx)("p",{"data-name":"powered",children:(0,t.jsx)("a",{href:"https://gurdharam.com",target:"_blank",rel:"noopener noreferrer","aria-label":"Made by Gurdharam",children:"Made by Gurdharam"})}),r[1]=a):a=r[1],r[2]===Symbol.for("react.memo_cache_sentinel")?(n=(0,t.jsxs)(y,{children:[e,a]}),r[2]=n):n=r[2],n'
-            m_code = m_code[:target_start] + new_credits + m_code[target_end:]
-    bad_bg_m = "background: rgba(10, 10, 10, 0.45);\n        backdrop-filter: blur(4px);\n        -webkit-backdrop-filter: blur(4px);"
-    good_bg_m = 'background: ${(0,p.getBrand)("bc3")};'
-    m_code = m_code.replace(bad_bg_m, good_bg_m)
-    m_code = m_code.replace('https://github.com/gurination1', 'https://gurdharam.com')
-    m_code = m_code.replace('https://wrpdgroup.com', 'https://gurdharam.com')
-    m_code = m_code.replace("[data-name='powered'] a{",
-                            "[data-name='powered'] { position: absolute; bottom: 0; right: var(--offset); text-align: right; margin: 0; } [data-name='powered'] a{")
+    # Replace Made by 12 Studio with Made by Gurdharam pointing to https://gurdharam.com
+    m_code = m_code.replace('https://12.studio', 'https://gurdharam.com')
+    m_code = m_code.replace('Navigate to 12 Studio', 'Made by Gurdharam')
+    m_code = m_code.replace('Made by 12 Studio', 'Made by Gurdharam')
     with open(menu_chunk_path, 'w', encoding='utf-8') as f:
         f.write(m_code)
-    print("Patched menu chunk: Made by Gurdharam in opposite corner")
+    print("Restored authentic menu chunk with z-index: 0 and Made by Gurdharam (gurdharam.com)")
 
 menu_chunk_path_alt = os.path.join(DEST_DIR, '_next/static/chunks/1o6f75j2bh32_.js')
 if os.path.exists(menu_chunk_path_alt):
     with open(menu_chunk_path_alt, 'r', encoding='utf-8') as f:
         m_alt = f.read()
-    bad_bg_alt = "background: rgba(10, 10, 10, 0.45);\n        backdrop-filter: blur(4px);\n        -webkit-backdrop-filter: blur(4px);"
-    good_bg_alt = 'background: ${(0,u.getBrand)("bc3")};'
-    m_alt = m_alt.replace(bad_bg_alt, good_bg_alt)
-    m_alt = m_alt.replace('https://github.com/gurination1', 'https://gurdharam.com')
-    m_alt = m_alt.replace('https://wrpdgroup.com', 'https://gurdharam.com')
-    m_alt = m_alt.replace("[data-name='powered'] a{",
-                          "[data-name='powered'] { position: absolute; bottom: 0; right: var(--offset); text-align: right; margin: 0; } [data-name='powered'] a{")
+    m_alt = m_alt.replace('z-index: 2;\n        background: ${(0,u.getBrand)("bc3")};',
+                          'z-index: 0;\n        background: ${(0,u.getBrand)("bc3")};')
+    m_alt = m_alt.replace('https://12.studio', 'https://gurdharam.com')
+    m_alt = m_alt.replace('Navigate to 12 Studio', 'Made by Gurdharam')
+    m_alt = m_alt.replace('Made by 12 Studio', 'Made by Gurdharam')
     with open(menu_chunk_path_alt, 'w', encoding='utf-8') as f:
         f.write(m_alt)
-    print("Patched alt menu chunk: opposite corner credits")
+    print("Patched alt menu chunk: z-index 0 and Made by Gurdharam")
 
 # Restore authentic preloader chunk from original_414.js and patch scrollerProxy, route scroll reset & mini site preview
 original_414_path = os.path.join(DEST_DIR, 'original_414.js')
