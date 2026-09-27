@@ -554,7 +554,6 @@ body.site-entered {{
 html.site-entered #page,
 body.site-entered #page,
 #page {{
-  clip-path: none !important;
   view-transition-name: none !important;
 }}
 .sc-2b3d2147-1,
@@ -613,6 +612,23 @@ html.site-entered:not(.hero-scrolled) [data-text="top"] h1 div {{
   visibility: visible !important;
   transform: none !important;
   filter: none !important;
+}}
+@media (max-width: 768px) {{
+  .lagqCY [data-text="top"],
+  [data-text="top"] {{
+    align-items: flex-start !important;
+    padding-top: clamp(6.5rem, 11vh, 8.5rem) !important;
+  }}
+  .sc-12ea9db1-3,
+  .dpFkxc,
+  h1[data-sanity*="heroHeading"],
+  h1 {{
+    font-size: clamp(3.2rem, 8.5vw, 4.4rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.1rem !important;
+    max-width: 320px !important;
+    margin-inline: auto !important;
+  }}
 }}
 html.site-entered .sc-12ea9db1-4,
 html.site-entered .hflLLX,
@@ -1098,25 +1114,8 @@ RUNTIME_HEAD_INJECTION = f"""
       setTimeout(updateMenuState, 20);
       setTimeout(updateMenuState, 150);
       setTimeout(cleanCredits, 150);
-      return;
     }}
-
-    const isOpen = document.documentElement.classList.contains('site-menu-open');
-    if (!isOpen) return;
-
-    const trigger = document.querySelector('button[aria-controls="site-menu"]');
-    if (!trigger) return;
-
-    const siteMenu = document.getElementById('site-menu');
-    const isInteractiveMenuClick = siteMenu && siteMenu.contains(e.target) && (e.target.closest('a') || e.target.closest('button'));
-    if (isInteractiveMenuClick) return;
-
-    // Click on mini preview card or menu backdrop -> close menu
-    e.preventDefault();
-    e.stopPropagation();
-    trigger.click();
-    setTimeout(updateMenuState, 50);
-  }}, true);
+  }});
 
   document.addEventListener('keydown', function(e) {{
     if (e.key === 'Escape' && document.documentElement.classList.contains('site-menu-open')) {{
