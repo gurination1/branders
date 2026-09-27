@@ -169,8 +169,8 @@
         z-index: 1;
         
         pointer-events: ${e?"none":"all"};
-        clip-path: none; border-radius: ${e?"16px":"0px"}; box-shadow: ${e?"0 30px 100px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.7)":"none"}; border: ${e?"1px solid rgba(255,255,255,0.18)":"1px solid transparent"}; opacity: ${e?0.55:1}; transform-origin: center center;
-        scale: ${e?.52:1};
+        clip-path: inset(${50*!!e}%);
+        scale: ${e?.5:1};
         transition: clip-path var(--speed) var(--ease), scale var(--speed) var(--ease);
 
         /* NOTE • Promoted BEFORE the first open, not during it. Animating clip-path

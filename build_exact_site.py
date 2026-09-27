@@ -703,12 +703,28 @@ h2[data-sanity*="introductionHeading"] {{
   text-align: center !important;
   text-wrap: balance !important;
   font-family: var(--font-heading) !important;
+  text-transform: capitalize !important;
+  font-synthesis: none !important;
   font-weight: 200 !important;
-  font-size: clamp(2.5rem, 5.5vw, 6.5rem) !important;
-  line-height: 1.15 !important;
-  letter-spacing: -0.04em !important;
+  font-size: 3.6rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.1rem !important;
   will-change: transform, opacity, filter !important;
   pointer-events: none !important;
+}}
+@media (min-width: 1024px) {{
+  .sc-2b039258-4,
+  .gSwEKM,
+  h2[data-sanity*="introductionHeading"] {{
+    font-size: 6.4rem !important;
+  }}
+}}
+@media (min-width: 1200px) {{
+  .sc-2b039258-4,
+  .gSwEKM,
+  h2[data-sanity*="introductionHeading"] {{
+    font-size: 8rem !important;
+  }}
 }}
 .sc-2b039258-4 .intro-word,
 .gSwEKM .intro-word,
@@ -733,40 +749,6 @@ div[data-name="jacket"] {{
   background-color: #000000 !important;
 }}
 
-/* Mini site preview when menu is open */
-html.site-menu-open main#page,
-body.site-menu-open main#page {{
-  clip-path: none !important;
-  scale: 0.52 !important;
-  opacity: 0.55 !important;
-  border-radius: 16px !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.95), 0 0 40px rgba(0, 0, 0, 0.7) !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  transform-origin: center center !important;
-  transition: scale 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              border-radius 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}}
-
-html:not(.site-menu-open) main#page,
-body:not(.site-menu-open) main#page {{
-  transition: scale 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              border-radius 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}}
-
-/* Ensure menu overlay floats in front with semi-transparent backdrop */
-nav#site-menu {{
-  z-index: 2 !important;
-  background: rgba(10, 10, 10, 0.45) !important;
-  backdrop-filter: blur(4px) !important;
-  -webkit-backdrop-filter: blur(4px) !important;
-}}
-
 /* Position Made by Gurdharam in opposite bottom corner to copyright */
 nav#site-menu [data-name="powered"] {{
   position: absolute !important;
@@ -787,10 +769,6 @@ nav#site-menu [data-name="copyright"] {{
 }}
 
 @media (max-width: 768px) {{
-  html.site-menu-open main#page {{
-    scale: 0.58 !important;
-    border-radius: 12px !important;
-  }}
   nav#site-menu [data-name="powered"] {{
     right: 2rem !important;
   }}
@@ -933,6 +911,24 @@ RUNTIME_HEAD_INJECTION = f"""
       }}
       if (fname.startsWith('135b8a261d63c2eacb7a981b7479b94c4a74998c')) {{
         return '{BASE_PATH}/assets/cars/porsche_gt3rs_overhead.png';
+      }}
+      if (fname.startsWith('dc00a94ef171fe44f6a793a72a3fa9216dd48f15')) {{
+        return '{BASE_PATH}/assets/cars/service_bodystyling_bespoke.jpg';
+      }}
+      if (fname.startsWith('b98d6f2372e56bacbab8c532906ab79dd6a70581')) {{
+        return '{BASE_PATH}/assets/cars/service_interior_bespoke.jpg';
+      }}
+      if (fname.startsWith('eba4e5fd9c980edaf3a36249253d9db5bdd4755c')) {{
+        return '{BASE_PATH}/assets/cars/service_wheels_bespoke.jpg';
+      }}
+      if (fname.startsWith('1afaca4dbc32c6ef8e332bb05c144f56bef61599')) {{
+        return '{BASE_PATH}/assets/cars/service_lighting_bespoke.jpg';
+      }}
+      if (fname.startsWith('e7030382683e44699afff394af92ae564c998004')) {{
+        return '{BASE_PATH}/assets/cars/service_exhaust_bespoke.jpg';
+      }}
+      if (fname.startsWith('e2d7ada78adba232d267d00994ba320200322289')) {{
+        return '{BASE_PATH}/assets/cars/service_protection_bespoke.jpg';
       }}
       if (imgMap[fname]) return '{BASE_PATH}/assets/cars/' + imgMap[fname];
       const h = fname.slice(0, 40);
@@ -1274,42 +1270,19 @@ COPYWRITING_REPLACEMENTS = [
     ('A luxury automotive atelier for bespoke styling, performance and craftsmanship — one-off Defender, G63, Range Rover, Urus and 911 builds.',
      'An elite automotive atelier engineering bespoke widebody styling, forged carbon aero, and race-bred performance modifications for Defender, G63, Urus, and 911 platforms.'),
 
-    # 3. Modification Pillars (01 Vision, 02 Engineering, 03 Execution)
-    ('<h3>Identity</h3>', '<h3>Vision</h3>'),
-    ('\\"heading\\":\\"Identity\\"', '\\"heading\\":\\"Vision\\"'),
-    ('Forge Identity', 'Branders Vision'),
-    ('Every build begins with the person behind the wheel, shaped around their individual taste, lifestyle, presence and personal sense of identity on the road.',
-     'Every commission starts with the driver’s DNA. From bespoke leather palettes to aggressive widebody proportions, we shape a silhouette that commands the road before the engine even turns.'),
-    ('<h3>Insight</h3>', '<h3>Engineering</h3>'),
-    ('\\"heading\\":\\"Insight\\"', '\\"heading\\":\\"Engineering\\"'),
-    ('Forge Insight', 'Branders Engineering'),
-    ('Exterior, interior and performance are brought together through a considered, detail-led approach, creating one complete and fully resolved vision.',
-     'Aerodynamics, cockpit ergonomics, and acoustics are tuned in total unison. Computational airflow, forged monoblock offsets, and active valved exhausts converge into one lethal, unified machine.'),
-    ('<h3>Cohesion</h3>', '<h3>Execution</h3>'),
-    ('\\"heading\\":\\"Cohesion\\"', '\\"heading\\":\\"Execution\\"'),
-    ('Forge Cohesion', 'Branders Execution'),
-    ('Every modification is chosen with precision, ensuring each detail adds purpose, balance and distinction to the final bespoke automotive build.',
-     'Zero compromise on fit and finish. Exposed carbon weave alignment, bespoke CNC billet hardware, and surgical multi-stage paint correction ensure your build withstands high-speed scrutiny on track and street.'),
+    # 3. Modification Pillars (01 Identity, 02 Insight, 03 Cohesion)
+    ('Forge Identity', 'Branders Identity'),
+    ('Forge Intent', 'Branders Intent'),
+    ('Forge Cohesion', 'Branders Cohesion'),
 
-    # 4. Services Section (Intro & 6 Disciplines)
-    ('A vehicle should say something before it moves. Every line, material, and finish is considered.',
-     'A true build commands the asphalt before the engine starts. Every contour, weave, and exhaust note is calculated.'),
-    ('Our services are shaped with intent, from exterior styling and interior refinement to performance upgrades, detailing and bespoke finishes; each detail sharpens the vehicle’s character without overpowering it.',
-     'From radical widebody conversions and forged carbon aero to custom valved titanium exhausts, bespoke cockpit re-trims, and self-healing armor detailing — we engineer visceral presence that leaves standard supercars in the dust.'),
-    ('From aero styling to carbon details and exterior refinement,  bodywork is designed to change the vehicle’s presence without compromising its original character.',
-     'Widebody arch sculpting, high-downforce front splitters, rear diffusers, and autoclave-cured dry carbon fiber. We re-engineer aerodynamic flow and aggressive stance with OEM-grade panel tolerances.'),
-    ('From aero styling to carbon details and exterior refinement, bodywork is designed to change the vehicle’s presence without compromising its original character.',
-     'Widebody arch sculpting, high-downforce front splitters, rear diffusers, and autoclave-cured dry carbon fiber. We re-engineer aerodynamic flow and aggressive stance with OEM-grade panel tolerances.'),
-    ('Material, stitching, trim and finish are selected to create an interior that feels personal, tactile and composed. We turn the cabin into a space of identity, comfort and control.',
-     'Bespoke cockpit architecture tailored to you: full Italian Nappa leather re-trims, Alcantara headliners, custom hexagonal quilting, forged carbon console inlays, and CNC-machined paddle shifters.'),
-    ('Bespoke wheel upgrades designed to enhance stance, proportion and road presence, with fitments selected to complement the vehicle’s character and performance.',
-     'Ultra-lightweight forged monoblock and multi-piece modular wheels. Custom-engineered offsets, deep concave profiles, and track-tested fitments that fill widebody arches with millimeter-flush stance.'),
-    ('Lighting gives a vehicle its expression. From subtle tinting to signature illumination and refined visual details, we use light to sharpen character, presence and atmosphere.',
-     'Smoked laser headlamps, custom LED daytime running signatures, animated welcome sequences, and ambient multi-zone cockpit fiber-optics engineered to give the vehicle a menacing nocturnal signature.'),
-    ('Exhaust upgrades are chosen for tone, response and presence. Not noise for the sake of noise, but a sound profile that gives the vehicle more character and depth.',
-     'Handcrafted lightweight titanium and Inconel valved exhaust systems. Engineered for spine-tingling acoustic pitch, instant throttle response, crackles on downshift, and switchable stealth-to-fury valves.'),
-    ('Paint protective film solutions that preserve the finish of the vehicle while allowing for satin finishes, coloured films and full visual transformation.',
-     'Self-healing ceramic Paint Protection Film (PPF), satin stealth wraps, custom liquid color transformations, and multi-stage paint correction detailing that guarantees mirror-gloss armor against high-speed rock chips.'),
+    # 4. Services Section (Alts & Headings)
+    ('Forge Service: Bodywork', 'Branders Service: Bodystyling'),
+    ('Forge Service: Interior', 'Branders Service: Interior'),
+    ('Forge Service: Wheels', 'Branders Service: Wheels'),
+    ('Forge Service: Lighting', 'Branders Service: Lighting'),
+    ('Forge Service: Exhaust', 'Branders Service: Exhaust'),
+    ('Forge Service: Wraps / PPF', 'Branders Service: Protection'),
+    ('Forge Service: PPF / Wraps', 'Branders Service: Protection'),
 
     # 5. Mid CTAs & Global Section Transitions
     ('<em>Ordinary</em><span class="sr-only">Ordinary</span>',
@@ -1500,29 +1473,31 @@ if os.path.exists(menu_chunk_path):
             target_end += len(',r[2]=n):n=r[2],n')
             new_credits = 'r[1]===Symbol.for("react.memo_cache_sentinel")?(a=(0,t.jsx)("p",{"data-name":"powered",children:(0,t.jsx)("a",{href:"https://gurdharam.com",target:"_blank",rel:"noopener noreferrer","aria-label":"Made by Gurdharam",children:"Made by Gurdharam"})}),r[1]=a):a=r[1],r[2]===Symbol.for("react.memo_cache_sentinel")?(n=(0,t.jsxs)(y,{children:[e,a]}),r[2]=n):n=r[2],n'
             m_code = m_code[:target_start] + new_credits + m_code[target_end:]
+    bad_bg_m = "background: rgba(10, 10, 10, 0.45);\n        backdrop-filter: blur(4px);\n        -webkit-backdrop-filter: blur(4px);"
+    good_bg_m = 'background: ${(0,p.getBrand)("bc3")};'
+    m_code = m_code.replace(bad_bg_m, good_bg_m)
     m_code = m_code.replace('https://github.com/gurination1', 'https://gurdharam.com')
     m_code = m_code.replace('https://wrpdgroup.com', 'https://gurdharam.com')
-    m_code = m_code.replace('z-index: 0;\n        background: ${(0,p.getBrand)("bc3")};',
-                            'z-index: 2;\n        background: rgba(10, 10, 10, 0.45);\n        backdrop-filter: blur(4px);\n        -webkit-backdrop-filter: blur(4px);')
     m_code = m_code.replace("[data-name='powered'] a{",
                             "[data-name='powered'] { position: absolute; bottom: 0; right: var(--offset); text-align: right; margin: 0; } [data-name='powered'] a{")
     with open(menu_chunk_path, 'w', encoding='utf-8') as f:
         f.write(m_code)
-    print("Patched menu chunk: Made by Gurdharam in opposite corner & backdrop")
+    print("Patched menu chunk: Made by Gurdharam in opposite corner")
 
 menu_chunk_path_alt = os.path.join(DEST_DIR, '_next/static/chunks/1o6f75j2bh32_.js')
 if os.path.exists(menu_chunk_path_alt):
     with open(menu_chunk_path_alt, 'r', encoding='utf-8') as f:
         m_alt = f.read()
+    bad_bg_alt = "background: rgba(10, 10, 10, 0.45);\n        backdrop-filter: blur(4px);\n        -webkit-backdrop-filter: blur(4px);"
+    good_bg_alt = 'background: ${(0,u.getBrand)("bc3")};'
+    m_alt = m_alt.replace(bad_bg_alt, good_bg_alt)
     m_alt = m_alt.replace('https://github.com/gurination1', 'https://gurdharam.com')
     m_alt = m_alt.replace('https://wrpdgroup.com', 'https://gurdharam.com')
-    m_alt = m_alt.replace('z-index: 0;\n        background: ${(0,u.getBrand)("bc3")};',
-                          'z-index: 2;\n        background: rgba(10, 10, 10, 0.45);\n        backdrop-filter: blur(4px);\n        -webkit-backdrop-filter: blur(4px);')
     m_alt = m_alt.replace("[data-name='powered'] a{",
                           "[data-name='powered'] { position: absolute; bottom: 0; right: var(--offset); text-align: right; margin: 0; } [data-name='powered'] a{")
     with open(menu_chunk_path_alt, 'w', encoding='utf-8') as f:
         f.write(m_alt)
-    print("Patched alt menu chunk: opposite corner credits & backdrop")
+    print("Patched alt menu chunk: opposite corner credits")
 
 # Restore authentic preloader chunk from original_414.js and patch scrollerProxy, route scroll reset & mini site preview
 original_414_path = os.path.join(DEST_DIR, 'original_414.js')
@@ -1537,10 +1512,6 @@ if os.path.exists(original_414_path):
     # 2. Prevent route-reset hook from jumping to top on initial mount or re-mount
     p_code = p_code.replace('if(!e||r.current===t)return;r.current=t,',
                             'if(!e||r.current===t||null===r.current){r.current=t;return;}r.current=t,')
-    # 3. Mini site preview when menu is open: remove clip-path inset(50%), scale 0.52, rounded corners, box-shadow, opacity
-    p_code = p_code.replace('clip-path: inset(${50*!!e}%);',
-                            'clip-path: none; border-radius: ${e?"16px":"0px"}; box-shadow: ${e?"0 30px 100px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.7)":"none"}; border: ${e?"1px solid rgba(255,255,255,0.18)":"1px solid transparent"}; opacity: ${e?0.55:1}; transform-origin: center center;')
-    p_code = p_code.replace('scale: ${e?.5:1};', 'scale: ${e?.52:1};')
     p_code = p_code.replace('y.current?.toggleAttribute("inert",b||h)', 'y.current?.toggleAttribute("inert",b)')
     # 4. Recognize subpath /branders as homepage for Loader and SmoothScroll
     p_code = p_code.replace('F="/"===(0,p.usePathname)()', 'F=["/","/branders","/branders/","/aurelius-atelier","/aurelius-atelier/"].includes((0,p.usePathname)())')
@@ -1551,7 +1522,7 @@ if os.path.exists(original_414_path):
     p_code = p_code.replace('"aria-label":"Welcome to Forge Automotive"', '"aria-label":"Welcome to Branders"')
     with open(preloader_chunk_path, 'w', encoding='utf-8') as f:
         f.write(p_code)
-    print("Patched 414 chunk: scroll reset, mini site preview, subpath homepage, reliable preloader & Branders aria-label")
+    print("Patched 414 chunk: scroll reset, subpath homepage, reliable preloader & Branders aria-label")
 
 # Hero background chunk update: 50ms ActiveFrame timeout & persistent background container
 hero_chunk_path = os.path.join(DEST_DIR, '_next/static/chunks/43lg5uv8_am8v.js')
