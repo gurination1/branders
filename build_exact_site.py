@@ -61,6 +61,10 @@ def map_sanity_file(fname):
         return ('car', '4d877ce34bbd3354636fb32f4d5f944e2487c8b4-512x512.png')
     if 'd7577b4b' in fname:
         return ('car', 'd7577b4b9f6a6acda5594e9e6171678dba58e133-1200x630.jpg')
+    if 'c6f15b94' in fname:
+        return ('car', 'c6f15b9448f9090f3c7d9f0b5fab4e3cbc8e7284-2880x1800.jpg')
+    if '9ae611ac' in fname:
+        return ('car', '9ae611ac36488077eadfc0d1f8a5aa163aae1c8e-880x1592.jpg')
     return None
 
 sanity_pattern = re.compile(r'https?://cdn\.sanity\.io/images/[^/]+/production/([a-zA-Z0-9_\-\.]+)(?:\\u[0-9a-fA-F]{4}|[^\s"\'<>\\])*')
@@ -773,7 +777,7 @@ main#page {{
   z-index: 1 !important;
 }}
 
-/* Hide powered by WRPD so bottom-left has Copyright and bottom-right has Made by Gurdharam */
+/* Clean footer attribution: bottom-left Copyright, bottom-right Made by Gurdharam */
 nav#site-menu [data-name="powered"] {{
   display: none !important;
 }}
@@ -1212,9 +1216,18 @@ def sanitize_forge_credentials(html_str):
     html_str = re.sub(r'https?://maps\.app\.goo\.gl/[a-zA-Z0-9]+/?', '#locations', html_str)
 
     # 5. Legal / Corporate WRPD credentials
+    html_str = html_str.replace('WRPD London', 'Branders London')
     html_str = re.sub(r'The\s+WRPD\s+Group\s+Ltd', 'Branders Ltd', html_str)
     html_str = re.sub(r'WRPD\s+Group\s+Ltd', 'Branders Ltd', html_str)
     html_str = re.sub(r'WRPD\s+Group', 'Branders', html_str)
+    html_str = re.sub(r'\bWRPD\b', 'Branders', html_str)
+    html_str = html_str.replace('https://wrpdgroup.com', 'https://gurdharam.com')
+    html_str = html_str.replace('wrpdgroup.com', 'gurdharam.com')
+    html_str = html_str.replace('Powered by WRPD', 'Made by Gurdharam')
+    html_str = html_str.replace('Navigate to WRPD', 'Made by Gurdharam')
+    html_str = html_str.replace('Made by 12 Studio', 'Made by Gurdharam')
+    html_str = html_str.replace('Navigate to 12 Studio', 'Made by Gurdharam')
+    html_str = html_str.replace('https://12.studio', 'https://gurdharam.com')
     html_str = html_str.replace('Unit 5 Overland ParkGelderd RoadGildersomeLeedsWest YorkshireLS27 7FE', 'Branders Atelier, London, United Kingdom')
     html_str = html_str.replace('Unit 5 Overland Park', 'Branders Atelier')
     html_str = html_str.replace('Gelderd Road', 'Atelier Way')
@@ -1241,6 +1254,8 @@ def sanitize_forge_credentials(html_str):
     html_str = html_str.replace('<link rel="dns-prefetch" href="https://cdn.sanity.io"/>', '')
     html_str = html_str.replace('<link rel="preconnect" href="https://cdn.sanity.io">', '')
     html_str = html_str.replace('<link rel="dns-prefetch" href="https://cdn.sanity.io">', '')
+    html_str = re.sub(r'\[\"\$\",\"link\",\s*\"[^\"]*\",\s*\{\"rel\":\"preconnect\",\"href\":\"https://cdn\.sanity\.io\"\}\]', 'null', html_str)
+    html_str = re.sub(r'\{\"rel\":\"preconnect\",\"href\":\"https://cdn\.sanity\.io\"\}', 'null', html_str)
 
     return html_str
 
@@ -1403,11 +1418,13 @@ def process_page(slug):
     # If builds catalog page, restore all 7 build cards with their authentic photography
     if slug == 'builds':
         card_map = {
-            'Porsche 911': 'fdaa9824ff8842641b99786a35370f65f6ec521d-880x1592.jpg',
-            'Defender 130': 'd44ccc566e08123c477f06b6eee3aec7c01de1f7-880x1592.jpg',
-            'Lamborghini Urus': '0109009941f809c9ec799f8cb8331a3dfa054074-880x1592.jpg',
-            'BMW M5': '422b56f1c62d29f61f570927fafcf0016fb731aa-880x1592.jpg',
-            'Mercedes G63': 'f44102fb39a1f2853a2b050188e2ec2c66b4bcca-880x1592.jpg',
+            'Porsche 911': 'build_porsche_gt3rs.jpg',
+            'Defender 130': 'defender_130_bespoke_hero.jpg',
+            'Lamborghini Urus': 'urus_performante_bespoke_hero.jpg',
+            'BMW M5': 'ferrari_296_bespoke_hero.jpg',
+            'Mercedes G63': 'g63_amg_bespoke_hero.jpg',
+            'Aston Martin': 'aston_dbs_bespoke_hero.jpg',
+            'Defender 110': 'build_defender_110.jpg',
         }
         def replace_deferred_build(match):
             tag = match.group(0)
@@ -1454,10 +1471,15 @@ if os.path.exists(original_40ga_path):
     shutil.copyfile(original_40ga_path, menu_chunk_path)
     with open(menu_chunk_path, 'r', encoding='utf-8') as f:
         m_code = f.read()
-    # Replace Made by 12 Studio with Made by Gurdharam pointing to https://gurdharam.com
+    # Replace Made by 12 Studio & WRPD with Made by Gurdharam
     m_code = m_code.replace('https://12.studio', 'https://gurdharam.com')
     m_code = m_code.replace('Navigate to 12 Studio', 'Made by Gurdharam')
     m_code = m_code.replace('Made by 12 Studio', 'Made by Gurdharam')
+    m_code = m_code.replace('https://wrpdgroup.com', 'https://gurdharam.com')
+    m_code = m_code.replace('Navigate to WRPD', 'Made by Gurdharam')
+    m_code = m_code.replace('Powered by WRPD', 'Made by Gurdharam')
+    m_code = m_code.replace('"aria-label":"Navigate to WRPD"', '"aria-label":"Made by Gurdharam"')
+    m_code = m_code.replace('"aria-label":"Powered by WRPD"', '"aria-label":"Made by Gurdharam"')
     with open(menu_chunk_path, 'w', encoding='utf-8') as f:
         f.write(m_code)
     print("Restored authentic menu chunk with z-index: 0 and Made by Gurdharam (gurdharam.com)")
@@ -1470,6 +1492,12 @@ if os.path.exists(menu_chunk_path_alt):
                           'z-index: 0;\n        background: ${(0,u.getBrand)("bc3")};')
     m_alt = m_alt.replace('https://12.studio', 'https://gurdharam.com')
     m_alt = m_alt.replace('Navigate to 12 Studio', 'Made by Gurdharam')
+    m_alt = m_alt.replace('Made by 12 Studio', 'Made by Gurdharam')
+    m_alt = m_alt.replace('https://wrpdgroup.com', 'https://gurdharam.com')
+    m_alt = m_alt.replace('Navigate to WRPD', 'Made by Gurdharam')
+    m_alt = m_alt.replace('Powered by WRPD', 'Made by Gurdharam')
+    m_alt = m_alt.replace('"aria-label":"Navigate to WRPD"', '"aria-label":"Made by Gurdharam"')
+    m_alt = m_alt.replace('"aria-label":"Powered by WRPD"', '"aria-label":"Made by Gurdharam"')
     m_alt = m_alt.replace('Made by 12 Studio', 'Made by Gurdharam')
     with open(menu_chunk_path_alt, 'w', encoding='utf-8') as f:
         f.write(m_alt)
@@ -1657,6 +1685,24 @@ for cfile in glob.glob(os.path.join(DEST_DIR, '_next/static/chunks/*.js')):
         changed = True
     if 'bookings@wrpdgroup.com' in cdata:
         cdata = cdata.replace('bookings@wrpdgroup.com', 'contact@branders.co.uk')
+        changed = True
+    if 'wrpd' in cdata.lower() or 'WRPD' in cdata:
+        cdata = cdata.replace('https://wrpdgroup.com', 'https://gurdharam.com')
+        cdata = cdata.replace('wrpdgroup.com', 'gurdharam.com')
+        cdata = cdata.replace('Powered by WRPD', 'Made by Gurdharam')
+        cdata = cdata.replace('Navigate to WRPD', 'Made by Gurdharam')
+        cdata = cdata.replace('"aria-label":"Navigate to WRPD"', '"aria-label":"Made by Gurdharam"')
+        cdata = cdata.replace('"aria-label":"Powered by WRPD"', '"aria-label":"Made by Gurdharam"')
+        cdata = cdata.replace('WRPD London', 'Branders London')
+        cdata = re.sub(r'The\s+WRPD\s+Group\s+Ltd', 'Branders Ltd', cdata)
+        cdata = re.sub(r'WRPD\s+Group\s+Ltd', 'Branders Ltd', cdata)
+        cdata = re.sub(r'WRPD\s+Group', 'Branders', cdata)
+        cdata = re.sub(r'\bWRPD\b', 'Branders', cdata)
+        changed = True
+    if '12.studio' in cdata:
+        cdata = cdata.replace('https://12.studio', 'https://gurdharam.com')
+        cdata = cdata.replace('Navigate to 12 Studio', 'Made by Gurdharam')
+        cdata = cdata.replace('Made by 12 Studio', 'Made by Gurdharam')
         changed = True
 
     # Neutralize SanityLive live connection
