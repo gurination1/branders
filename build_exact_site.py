@@ -92,8 +92,8 @@ HERO_BLEND_ENGINE = f"""
 
   function initIntroWords(introH2) {{
     if (!introH2 || introWordsInitialized) return;
-    const line1 = ["We", "don’t", "modify", "vehicles"];
-    const line2 = ["We", "build", "them", "for", "you"];
+    const line1 = ["We", "do", "not", "alter", "vehicles"];
+    const line2 = ["We", "craft", "them", "for", "you"];
     
     const renderWords = function(arr) {{
       return arr.map(function(w) {{
@@ -408,7 +408,7 @@ HERO_BLEND_ENGINE = f"""
           w.style.filter = 'blur(0px)';
         }});
       }} else if (currentProgress > 0.68 && currentProgress <= 0.94) {{
-        // As Section 2 ("Our Approach To Every Build") rises, blur out and fade
+        // As Section 2 ("Our Approach To Every Project") rises, blur out and fade
         const outRatio = (currentProgress - 0.68) / (0.94 - 0.68);
         const alpha = Math.max(0, 1 - outRatio);
         const blur = Math.min(12, outRatio * 12);
@@ -556,6 +556,33 @@ section.sc-12ea9db1-0 canvas {{
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
+}}
+@font-face {{
+  font-family: 'editorial';
+  src: url('{BASE_PATH}/_next/static/media/light-s.p.1q4b3b-dtiu5n.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'editorial';
+  src: url('{BASE_PATH}/_next/static/media/ultralight-s.p.0zgba-tqx_tb1.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 200;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'editorial';
+  src: url('{BASE_PATH}/_next/static/media/ultralight_italic-s.p.2aups5f54pqez.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 200;
+  font-style: italic;
+}}
+.editorial_5b27502a-module__OGcOgW__className,
+[class*="editorial_"],
+h1, h2, h3, .editorial-heading {{
+  font-family: 'Cormorant Garamond', 'editorial', Georgia, serif !important;
+  letter-spacing: -0.015em !important;
 }}
 html.site-entered,
 body.site-entered {{
@@ -1266,16 +1293,58 @@ def sanitize_forge_credentials(html_str):
     return html_str
 
 COPYWRITING_REPLACEMENTS = [
+    # 0. Hero Headline & SplitText Isomorphic Metric-Locked Twin
+    ('We don’t modify vehicles', 'We do not alter vehicles'),
+    ('We don&#x27;t modify vehicles', 'We do not alter vehicles'),
+    ("We don't modify vehicles", 'We do not alter vehicles'),
+    ('We build them for you', 'We craft them for you'),
+    ('\\"line1\\":\\"We don’t modify vehicles\\"', '\\"line1\\":\\"We do not alter vehicles\\"'),
+    ('\\"line1\\":\\"We don\'t modify vehicles\\"', '\\"line1\\":\\"We do not alter vehicles\\"'),
+    ('\\"line2\\":\\"We build them for you\\"', '\\"line2\\":\\"We craft them for you\\"'),
+
+    # Approach Section & Philosophy (Exact metric character lock)
+    ('Our Approach To Every Build', 'Our Approach To Every Project'),
+    ('Every decision is intentional, every detail has purpose based on your taste, your lifestyle, and your standards.',
+     'Every choice is deliberate, every detail holds purpose tailored to your taste, your lifestyle, and your standard.'),
+    ('Every decision is intentional, every detail has purpose based on your taste, your lifestyle, and your standards',
+     'Every choice is deliberate, every detail holds purpose tailored to your taste, your lifestyle, and your standard'),
+
+    # Services Intro (Exact metric character lock)
+    ('A vehicle should say something before it moves. Every line, material, and finish\xa0is considered.',
+     'A machine speaks before the ignition turns. Every contour, material, and finish\xa0is intentional.'),
+    ('A vehicle should say something before it moves. Every line, material, and finish\u00a0is considered.',
+     'A machine speaks before the ignition turns. Every contour, material, and finish\u00a0is intentional.'),
+    ('A vehicle should say something before it moves. Every line, material, and finish&nbsp;is considered.',
+     'A machine speaks before the ignition turns. Every contour, material, and finish&nbsp;is intentional.'),
+    ('A vehicle should say something before it moves. Every line, material, and finish is considered.',
+     'A machine speaks before the ignition turns. Every contour, material, and finish is intentional.'),
+    ('A vehicle should say something before it moves. Every line, material, and finish is considered',
+     'A machine speaks before the ignition turns. Every contour, material, and finish is intentional'),
+
+    # CTA & Philosophy
+    ('For Those Who Refuse Ordinary', 'For Those Who Refuse Standard'),
+    ('Refuse Ordinary', 'Refuse Standard'),
+    ('\\"heading\\":\\"Refuse Ordinary\\"', '\\"heading\\":\\"Refuse Standard\\"'),
+
+    # Geographic Atelier Decoupling
+    ('Bespoke vehicle builds from Yorkshire and the North West: paint protection film, carbon bodystyling, forged wheels, interiors, lighting and exhausts.',
+     'Bespoke vehicle builds from London and across the United Kingdom: paint protection film, carbon bodystyling, forged wheels, interiors, lighting and exhausts.'),
+    ('in Yorkshire and the North West', 'in London and across the UK'),
+    ('in Yorkshire or the North West', 'in London or across the UK'),
+    ('Yorkshire and the North West', 'London and across the UK'),
+    ('Yorkshire or the North West', 'London or across the UK'),
+
     # 1. Preloader, Footer Quote & Marquee Ticker
     ('Bespoke vehicles built on distinction, desire, and identity. not simply to be modified.',
      'Raw performance re-engineered with surgical craft. Built for those who refuse stock.'),
-    # Note: Scroll text & hero text retained with authentic Forge phrasing:
-    # "We don’t modify vehicles / We build them for you"
-    # "For Those Who Refuse Ordinary"
-    # "A luxury automotive atelier for bespoke styling, performance and craftsmanship."
+    ('Bespoke vehicles built on distinction, desire, and identity. not simply to modify vehicles, but to reimagine them as objects of distinction.',
+     'Raw performance re-engineered with surgical craft and power. Built for drivers who refuse stock, creating icons of pure individuality.'),
+
     # 2. Hero Section
     ('A luxury automotive atelier for bespoke styling, performance and craftsmanship — one-off Defender, G63, Range Rover, Urus and 911 builds.',
      'An elite automotive atelier engineering bespoke widebody styling, forged carbon aero, and race-bred performance modifications for Defender, G63, Urus, and 911 platforms.'),
+    ('A luxury automotive atelier for bespoke styling, performance and craftsmanship.',
+     'An elite automotive atelier engineering bespoke widebody styling, forged carbon aero, and race-bred performance modifications.'),
 
     # 3. Modification Pillars (01 Identity, 02 Insight, 03 Cohesion)
     ('Forge Identity', 'Branders Identity'),
@@ -1759,6 +1828,30 @@ for cfile in glob.glob(os.path.join(DEST_DIR, '_next/static/chunks/*.js')):
         cdata = cdata.replace('href:"/sitemap/"', f'href:"{BASE_PATH}/sitemap/"')
         cdata = cdata.replace('href:"/sitemap"', f'href:"{BASE_PATH}/sitemap"')
         changed = True
+
+    # Cleanroom copywriting replacements in JS bundles
+    for orig, repl in [
+        ('We don’t modify vehicles', 'We do not alter vehicles'),
+        ('We don\'t modify vehicles', 'We do not alter vehicles'),
+        ('We build them for you', 'We craft them for you'),
+        ('Refuse Ordinary', 'Refuse Standard'),
+        ('Our Approach To Every Build', 'Our Approach To Every Project'),
+        ('Every decision is intentional, every detail has purpose based on your taste, your lifestyle, and your standards.',
+         'Every choice is deliberate, every detail holds purpose tailored to your taste, your lifestyle, and your standard.'),
+        ('A vehicle should say something before it moves. Every line, material, and finish is considered.',
+         'A machine speaks before the ignition turns. Every contour, material, and finish is intentional.'),
+        ('Bespoke vehicles built on distinction, desire, and identity. not simply to modify vehicles, but to reimagine them as objects of distinction.',
+         'Raw performance re-engineered with surgical craft and power. Built for drivers who refuse stock, creating icons of pure individuality.'),
+        ('Bespoke vehicles built on distinction, desire, and identity. not simply to be modified.',
+         'Raw performance re-engineered with surgical craft. Built for those who refuse stock.'),
+        ('A luxury automotive atelier for bespoke styling, performance and craftsmanship.',
+         'An elite automotive atelier engineering bespoke widebody styling, forged carbon aero, and race-bred performance modifications.'),
+        ('Yorkshire and the North West', 'London and across the UK'),
+        ('Yorkshire or the North West', 'London or across the UK'),
+    ]:
+        if orig in cdata:
+            cdata = cdata.replace(orig, repl)
+            changed = True
 
     if changed:
         with open(cfile, 'w', encoding='utf-8') as cf:
