@@ -1346,7 +1346,7 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
       heroWrapper = document.createElement("div");
       heroWrapper.id = "hero-blend-wrapper";
       heroWrapper.className = "hero-blend-wrapper";
-      heroWrapper.style.cssText = "position:absolute; inset:0; width:100%; height:100%; overflow:hidden; pointer-events:none; z-index:0; background:#000000 url('/branders/assets/videos/hero_settled_frame.jpg') center/cover no-repeat; opacity:0; visibility:hidden; transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);";
+      heroWrapper.style.cssText = "position:absolute; inset:0; width:100%; height:100%; overflow:hidden; pointer-events:none; z-index:0; background:#000000; opacity:0; visibility:hidden; transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1);";
 
       // 1. Lineup Hero Video (Video 1 - Plays once and holds last frame, DOES NOT LOOP)
       introVideo = document.createElement("video");
@@ -1356,7 +1356,7 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
       introVideo.muted = true;
       introVideo.playsInline = true;
       introVideo.preload = "auto";
-      introVideo.poster = "/branders/assets/videos/hero_settled_frame.jpg";
+      introVideo.poster = "";
       introVideo.style.cssText = "position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; pointer-events:none; opacity:1; will-change:opacity,transform; transition:opacity 0.25s ease-out;";
 
       introVideo.addEventListener("ended", () => {
@@ -1756,8 +1756,14 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
 </script>
 <style id="hero-blend-styles">
 .hero-bg-media,
-.sc-2b039258-5 canvas {
+.sc-2b039258-5 canvas,
+.sc-12ea9db1-1,
+.sc-12ea9db1-2,
+section.sc-12ea9db1-0 canvas {
   display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 html.site-entered,
 body.site-entered {
