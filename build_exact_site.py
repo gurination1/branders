@@ -1418,13 +1418,11 @@ def process_page(slug):
     # If builds catalog page, restore all 7 build cards with their authentic photography
     if slug == 'builds':
         card_map = {
-            'Porsche 911': 'build_porsche_gt3rs.jpg',
-            'Defender 130': 'defender_130_bespoke_hero.jpg',
-            'Lamborghini Urus': 'urus_performante_bespoke_hero.jpg',
-            'BMW M5': 'ferrari_296_bespoke_hero.jpg',
-            'Mercedes G63': 'g63_amg_bespoke_hero.jpg',
-            'Aston Martin': 'aston_dbs_bespoke_hero.jpg',
-            'Defender 110': 'build_defender_110.jpg',
+            'Porsche 911': 'fdaa9824ff8842641b99786a35370f65f6ec521d-880x1592.jpg',
+            'Defender 130': 'd44ccc566e08123c477f06b6eee3aec7c01de1f7-880x1592.jpg',
+            'Lamborghini Urus': '0109009941f809c9ec799f8cb8331a3dfa054074-880x1592.jpg',
+            'BMW M5': '422b56f1c62d29f61f570927fafcf0016fb731aa-880x1592.jpg',
+            'Mercedes G63': 'f44102fb39a1f2853a2b050188e2ec2c66b4bcca-880x1592.jpg',
         }
         def replace_deferred_build(match):
             tag = match.group(0)
