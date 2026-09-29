@@ -931,8 +931,8 @@ RUNTIME_HEAD_INJECTION = f"""
 </script>
 <script id="runtime-image-guard">
 (function() {{
-  const imgMap = {json.dumps(IMAGE_MAP)};
-  const oemLogos = {json.dumps(list(OEM_SVGS))};
+  const imgMap = {json.dumps(IMAGE_MAP, sort_keys=True)};
+  const oemLogos = {json.dumps(sorted(list(OEM_SVGS)))};
   function rewriteUrl(url) {{
     if (!url || typeof url !== 'string') return url;
     for (let i = 0; i < oemLogos.length; i++) {{
