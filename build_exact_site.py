@@ -1459,6 +1459,15 @@ def process_page(slug):
     # 2. Surgical Brand & Logo replacement: Forge -> Branders
     html = replace_branders_logo_and_text(html)
 
+    # 2b. Decouple external YouTube videos -> Branders local cinematic reel
+    html = html.replace('https://youtu.be/bHoAHFnOI9M', f'{BASE_PATH}/assets/videos/hero_desktop_master.mp4')
+    html = html.replace('https://youtu.be/o5APAyVYuaM', f'{BASE_PATH}/assets/videos/hero_desktop_master.mp4')
+    html = html.replace('https://youtu.be/YRvofkUJRDg', f'{BASE_PATH}/assets/videos/hero_desktop_master.mp4')
+    html = html.replace('https:\\/\\/youtu.be\\/bHoAHFnOI9M', f'{BASE_PATH}/assets/videos/hero_desktop_master.mp4')
+    html = html.replace('https:\\/\\/youtu.be\\/o5APAyVYuaM', f'{BASE_PATH}/assets/videos/hero_desktop_master.mp4')
+    html = html.replace('https:\\/\\/youtu.be\\/YRvofkUJRDg', f'{BASE_PATH}/assets/videos/hero_desktop_master.mp4')
+    html = re.sub(r'https?:\\?/\\?/(?:www\.)?(?:youtu\.be|youtube\.com\/watch\?v=)[a-zA-Z0-9_\-]+', f'{BASE_PATH}/assets/videos/hero_desktop_master.mp4', html)
+
     # 3. Wire GitHub Pages subpath compatibility (prevent double prefix)
     html = re.sub(r'([\"\'`])/_next/', rf'\1{BASE_PATH}/_next/', html)
     html = re.sub(r'([\"\'`])/(ActiveFrame\.js|images/)', rf'\1{BASE_PATH}/\2', html)
