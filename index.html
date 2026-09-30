@@ -241,11 +241,11 @@
     powered.forEach(function(el) {
       if (el.style.display !== 'none') el.style.display = 'none';
     });
-    const headerHome = document.querySelector('a[aria-label*="home"].glWlYP, a[aria-label*="Forge home"]');
+    const headerHome = document.querySelector('a[aria-label*="home"].glWlYP, a[aria-label*="Branders home"]');
     if (headerHome && headerHome.getAttribute('aria-label') !== 'Branders home') {
       headerHome.setAttribute('aria-label', 'Branders home');
     }
-    const dialog = document.querySelector('[role="dialog"][aria-label*="Forge"]');
+    const dialog = document.querySelector('[role="dialog"]');
     if (dialog) {
       dialog.setAttribute('aria-label', 'Welcome to Branders');
     }
@@ -1606,7 +1606,7 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
     }
 
     // B) Scroll-Reveal Introduction Heading (0.10 -> 0.94)
-    // Synchronized authentic Forge typography scale(0 -> 1.0) & blur(8px -> 0px) from optical center
+    // Synchronized typography scale(0 -> 1.0) & blur(8px -> 0px) from optical center
     if (introH2) {
       if (!introWordsInitialized) {
         initIntroWords(introH2);
@@ -1627,7 +1627,7 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
         introH2.style.setProperty('filter', 'none', 'important');
         introH2.style.setProperty('transform', 'none', 'important');
         
-        // Exact Forge staggered zoom math from module 221781
+        // Staggered cinematic zoom math
         const pNorm = (currentProgress - 0.10) / (0.46 - 0.10);
         const total = introWordSpans.length || 9;
         const gap = 0.15;
@@ -1695,7 +1695,7 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
     heroObserver.observe(document.body || document.documentElement, { childList: true, subtree: true });
   }
 
-  // Interactive Preloader Controller (Authentic 1:1 Forge lifecycle)
+  // Interactive Preloader Controller
   (function() {
     let isExiting = false;
     function onEnter() {
@@ -2049,7 +2049,7 @@ div[data-name="jacket"] {
   background-color: #000000 !important;
 }
 
-/* Authentic Forge Menu aperture stacking: nav sits behind page */
+/* Menu aperture stacking: nav sits behind page */
 nav#site-menu {
   z-index: 0 !important;
 }

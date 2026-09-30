@@ -241,11 +241,11 @@
     powered.forEach(function(el) {
       if (el.style.display !== 'none') el.style.display = 'none';
     });
-    const headerHome = document.querySelector('a[aria-label*="home"].glWlYP, a[aria-label*="Forge home"]');
+    const headerHome = document.querySelector('a[aria-label*="home"].glWlYP, a[aria-label*="Branders home"]');
     if (headerHome && headerHome.getAttribute('aria-label') !== 'Branders home') {
       headerHome.setAttribute('aria-label', 'Branders home');
     }
-    const dialog = document.querySelector('[role="dialog"][aria-label*="Forge"]');
+    const dialog = document.querySelector('[role="dialog"]');
     if (dialog) {
       dialog.setAttribute('aria-label', 'Welcome to Branders');
     }
