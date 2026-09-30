@@ -1223,17 +1223,17 @@ def sanitize_forge_credentials(html_str):
     html_str = html_str.replace('03330417965', '+91 62808 34006')
     html_str = html_str.replace('3330417965', '6280834006')
 
-    # 2. Email: scrub all forgeautomotive & wrpdgroup emails -> contact@branders.co.uk
-    html_str = re.sub(r'href=[\"\']mailto:[^\"\']*forgeautomotive[^\"\']*[\"\']', 'href="mailto:contact@branders.co.uk"', html_str)
-    html_str = re.sub(r'href=[\"\']mailto:[^\"\']*wrpdgroup[^\"\']*[\"\']', 'href="mailto:contact@branders.co.uk"', html_str)
-    html_str = re.sub(r'[a-zA-Z0-9._%+-]+@forgeautomotive\.co\.uk', 'contact@branders.co.uk', html_str)
-    html_str = re.sub(r'[a-zA-Z0-9._%+-]+@wrpdgroup\.com', 'contact@branders.co.uk', html_str)
-    html_str = html_str.replace('bookings@wrpdgroup.comTelephone', 'contact@branders.co.uk | Telephone')
-    html_str = html_str.replace('contact@branders.co.ukTelephone', 'contact@branders.co.uk | Telephone')
-    html_str = html_str.replace('builds@forgeautomotive.co.uk', 'contact@branders.co.uk')
-    html_str = html_str.replace('bookings@wrpdgroup.com', 'contact@branders.co.uk')
-    html_str = html_str.replace('info@forgeautomotive.co.uk', 'contact@branders.co.uk')
-    html_str = html_str.replace('alex@forgeautomotive.co.uk', 'contact@branders.co.uk')
+    # 2. Email: scrub all forgeautomotive & wrpdgroup emails -> contact@branders.in
+    html_str = re.sub(r'href=[\"\']mailto:[^\"\']*forgeautomotive[^\"\']*[\"\']', 'href="mailto:contact@branders.in"', html_str)
+    html_str = re.sub(r'href=[\"\']mailto:[^\"\']*wrpdgroup[^\"\']*[\"\']', 'href="mailto:contact@branders.in"', html_str)
+    html_str = re.sub(r'[a-zA-Z0-9._%+-]+@forgeautomotive\.co\.uk', 'contact@branders.in', html_str)
+    html_str = re.sub(r'[a-zA-Z0-9._%+-]+@wrpdgroup\.com', 'contact@branders.in', html_str)
+    html_str = html_str.replace('bookings@wrpdgroup.comTelephone', 'contact@branders.in | Telephone')
+    html_str = html_str.replace('contact@branders.inTelephone', 'contact@branders.in | Telephone')
+    html_str = html_str.replace('builds@forgeautomotive.co.uk', 'contact@branders.in')
+    html_str = html_str.replace('bookings@wrpdgroup.com', 'contact@branders.in')
+    html_str = html_str.replace('info@forgeautomotive.co.uk', 'contact@branders.in')
+    html_str = html_str.replace('alex@forgeautomotive.co.uk', 'contact@branders.in')
 
     # 3. Social links: LinkedIn, Instagram, Facebook pointing to Forge -> #social with popup prevention
     html_str = re.sub(r'href=[\"\']https?://(?:www\.)?linkedin\.com/company/forge-automotive-ltd/?[\"\']', 'href="#social" onclick="event.preventDefault(); return false;"', html_str)
@@ -1261,13 +1261,13 @@ def sanitize_forge_credentials(html_str):
     html_str = html_str.replace('Made by 12 Studio', 'Made by Gurdharam')
     html_str = html_str.replace('Navigate to 12 Studio', 'Made by Gurdharam')
     html_str = html_str.replace('https://12.studio', 'https://gurdharam.com')
-    html_str = html_str.replace('Unit 5 Overland ParkGelderd RoadGildersomeLeedsWest YorkshireLS27 7FE', 'Branders Atelier, London, United Kingdom')
+    html_str = html_str.replace('Unit 5 Overland ParkGelderd RoadGildersomeLeedsWest Mumbai AtelierLS27 7FE', 'Branders Atelier, London, United Kingdom')
     html_str = html_str.replace('Unit 5 Overland Park', 'Branders Atelier')
     html_str = html_str.replace('Gelderd Road', 'Atelier Way')
     html_str = html_str.replace('Gildersome', 'London')
     html_str = html_str.replace('Leeds', 'London')
-    html_str = html_str.replace('LS27 7FE', 'SW1A 1AA')
-    html_str = html_str.replace('LS27\xa07FE', 'SW1A 1AA')
+    html_str = html_str.replace('LS27 7FE', '400001')
+    html_str = html_str.replace('LS27\xa07FE', '400001')
 
     # 6. Domains & Netlify
     html_str = html_str.replace('https%3A%2F%2Fforge-automotive.netlify.app%2Fstudio', '')
@@ -1327,12 +1327,12 @@ COPYWRITING_REPLACEMENTS = [
     ('\\"heading\\":\\"Refuse Ordinary\\"', '\\"heading\\":\\"Refuse Standard\\"'),
 
     # Geographic Atelier Decoupling
-    ('Bespoke vehicle builds from Yorkshire and the North West: paint protection film, carbon bodystyling, forged wheels, interiors, lighting and exhausts.',
-     'Bespoke vehicle builds from London and across the United Kingdom: paint protection film, carbon bodystyling, forged wheels, interiors, lighting and exhausts.'),
-    ('in Yorkshire and the North West', 'in London and across the UK'),
-    ('in Yorkshire or the North West', 'in London or across the UK'),
-    ('Yorkshire and the North West', 'London and across the UK'),
-    ('Yorkshire or the North West', 'London or across the UK'),
+    ('Bespoke vehicle builds from Mumbai Atelier and the Delhi NCR Studio: paint protection film, carbon bodystyling, forged wheels, interiors, lighting and exhausts.',
+     'Bespoke vehicle builds from Mumbai, Delhi NCR and across India: paint protection film, carbon bodystyling, forged wheels, interiors, lighting and exhausts.'),
+    ('in Mumbai Atelier and the Delhi NCR Studio', 'in London and across the UK'),
+    ('in Mumbai Atelier or the Delhi NCR Studio', 'in London or across the UK'),
+    ('Mumbai Atelier and the Delhi NCR Studio', 'London and across the UK'),
+    ('Mumbai Atelier or the Delhi NCR Studio', 'London or across the UK'),
 
     # 1. Preloader, Footer Quote & Marquee Ticker
     ('Bespoke vehicles built on distinction, desire, and identity. not simply to be modified.',
@@ -1370,7 +1370,7 @@ COPYWRITING_REPLACEMENTS = [
      'The Branders archive — an elite garage of fully transformed supercars, widebody conversions, and bespoke custom machines built without compromise.'),
     ('A collection of previous bespoke builds, shaped by craft, character and the people behind the wheel.',
      'Explore our garage of fully transformed supercars, widebody icons, and bespoke custom machines built without limits.'),
-    ('Finished Forge Automotive builds for sale now, each with a full specification. Viewings by appointment in Yorkshire and the North West.',
+    ('Finished Forge Automotive builds for sale now, each with a full specification. Viewings by appointment in Mumbai Atelier and the Delhi NCR Studio.',
      'Finished bespoke Branders commissions available for immediate acquisition. Fully modified, track-calibrated, and ready to dominate the streets.'),
     ('Builds available for purchase, refined with intent, engineered with purpose, and ready to make a statement.',
      'Fully transformed bespoke builds available for immediate delivery. Meticulously modified, dialed in, and ready to dominate the streets.'),
@@ -1401,7 +1401,7 @@ COPYWRITING_REPLACEMENTS = [
      'In build pipeline. Bespoke coachbuilt interior and widebody stance in progress. Enquire for early allocation.'),
 
     # 8. Contact & Concierge Experience
-    ('Every build starts with a conversation. Call, email or visit by appointment in Yorkshire or the North West to begin a bespoke vehicle commission.',
+    ('Every build starts with a conversation. Call, email or visit by appointment in Mumbai Atelier or the Delhi NCR Studio to begin a bespoke vehicle commission.',
      'Every masterpiece begins with a consultation. Connect directly with our engineering team to allocate and specify your bespoke vehicle transformation.'),
     ('Every build starts with a conversation', 'Every Masterpiece Begins With A Consultation'),
     ('Define Your Specification', 'Specify Your Commission'),
@@ -1750,7 +1750,7 @@ for cfile in glob.glob(os.path.join(DEST_DIR, '_next/static/chunks/*.js')):
         cdata = cdata.replace('aurelius-atelier', 'branders')
         changed = True
     if 'LS27 7FE' in cdata:
-        cdata = cdata.replace('LS27 7FE', 'SW1A 1AA')
+        cdata = cdata.replace('LS27 7FE', '400001')
         changed = True
     if 'forge-automotive.netlify.app' in cdata:
         cdata = cdata.replace('https://forge-automotive.netlify.app/studio', f'https://gurination1.github.io{BASE_PATH}')
@@ -1763,10 +1763,10 @@ for cfile in glob.glob(os.path.join(DEST_DIR, '_next/static/chunks/*.js')):
         cdata = cdata.replace('3330417965', '6280834006')
         changed = True
     if 'builds@forgeautomotive.co.uk' in cdata:
-        cdata = cdata.replace('builds@forgeautomotive.co.uk', 'contact@branders.co.uk')
+        cdata = cdata.replace('builds@forgeautomotive.co.uk', 'contact@branders.in')
         changed = True
     if 'bookings@wrpdgroup.com' in cdata:
-        cdata = cdata.replace('bookings@wrpdgroup.com', 'contact@branders.co.uk')
+        cdata = cdata.replace('bookings@wrpdgroup.com', 'contact@branders.in')
         changed = True
     if 'wrpd' in cdata.lower() or 'WRPD' in cdata:
         cdata = cdata.replace('https://wrpdgroup.com', 'https://gurdharam.com')
@@ -1855,8 +1855,8 @@ for cfile in glob.glob(os.path.join(DEST_DIR, '_next/static/chunks/*.js')):
          'Raw performance re-engineered with surgical craft. Built for those who refuse stock.'),
         ('A luxury automotive atelier for bespoke styling, performance and craftsmanship.',
          'An elite automotive atelier engineering bespoke widebody styling, forged carbon aero, and race-bred performance modifications.'),
-        ('Yorkshire and the North West', 'London and across the UK'),
-        ('Yorkshire or the North West', 'London or across the UK'),
+        ('Mumbai Atelier and the Delhi NCR Studio', 'London and across the UK'),
+        ('Mumbai Atelier or the Delhi NCR Studio', 'London or across the UK'),
     ]:
         if orig in cdata:
             cdata = cdata.replace(orig, repl)
