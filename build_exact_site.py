@@ -1322,9 +1322,9 @@ COPYWRITING_REPLACEMENTS = [
      'A machine speaks before the ignition turns. Every contour, material, and finish is intentional'),
 
     # CTA & Philosophy
-    ('For Those Who Refuse Ordinary', 'For Those Who Refuse Standard'),
-    ('Refuse Ordinary', 'Refuse Standard'),
-    ('\\"heading\\":\\"Refuse Ordinary\\"', '\\"heading\\":\\"Refuse Standard\\"'),
+    ('For Those Who Refuse Ordinary', 'For Those Who Defy Standard'),
+    ('Refuse Ordinary', 'Defy Standard'),
+    ('\\"heading\\":\\"Refuse Ordinary\\"', '\\"heading\\":\\"Defy Standard\\"'),
 
     # Geographic Atelier Decoupling
     ('Bespoke vehicle builds from Mumbai Atelier and the Delhi NCR Studio: paint protection film, carbon bodystyling, forged wheels, interiors, lighting and exhausts.',
@@ -1336,7 +1336,7 @@ COPYWRITING_REPLACEMENTS = [
 
     # 1. Preloader, Footer Quote & Marquee Ticker
     ('Bespoke vehicles built on distinction, desire, and identity. not simply to be modified.',
-     'Raw performance re-engineered with surgical craft. Built for those who refuse stock.'),
+     'Bespoke performance engineered with surgical craft. Crafted for those who command more.'),
     ('Bespoke vehicles built on distinction, desire, and identity. not simply to modify vehicles, but to reimagine them as objects of distinction.',
      'Raw performance re-engineered with surgical craft and power. Built for drivers who refuse stock, creating icons of pure individuality.'),
 
@@ -1369,13 +1369,13 @@ COPYWRITING_REPLACEMENTS = [
     ('The archive — a collection of bespoke builds shaped by craft, character and the people behind the wheel.',
      'The Branders archive — an elite garage of fully transformed supercars, widebody conversions, and bespoke custom machines built without compromise.'),
     ('A collection of previous bespoke builds, shaped by craft, character and the people behind the wheel.',
-     'Explore our garage of fully transformed supercars, widebody icons, and bespoke custom machines built without limits.'),
+     'Explore our garage of fully transformed supercars, widebody icons, and bespoke performance machines built without compromise.'),
     ('Finished Forge Automotive builds for sale now, each with a full specification. Viewings by appointment in Mumbai Atelier and the Delhi NCR Studio.',
      'Finished bespoke Branders commissions available for immediate acquisition. Fully modified, track-calibrated, and ready to dominate the streets.'),
     ('Builds available for purchase, refined with intent, engineered with purpose, and ready to make a statement.',
-     'Fully transformed bespoke builds available for immediate delivery. Meticulously modified, dialed in, and ready to dominate the streets.'),
+     'Fully transformed bespoke builds available for immediate delivery. Meticulously engineered, dialed in, and ready to dominate the tarmac.'),
     ('Builds available for purchase, custom refined with intent, purpose and ready to to make a statement.',
-     'Fully transformed bespoke builds available for immediate delivery. Meticulously modified, dialed in, and ready to dominate the streets.'),
+     'Fully transformed bespoke builds available for immediate delivery. Meticulously engineered, dialed in, and ready to dominate the tarmac.'),
 
 
     # 6. Builds Catalog & Detail Cards
@@ -1409,21 +1409,21 @@ COPYWRITING_REPLACEMENTS = [
      'Submit your platform specs and target modifications. Our engineering atelier provides dedicated build feasibility and allocation within 24 hours.'),
     ('Share your build details so we can prepare a tailored quote. We aim to respond within 1-3 business days',
      'Submit your platform specs and target modifications. Our engineering atelier provides dedicated build feasibility and allocation within 24 hours.'),
-    ('A considered process built around you', 'A Precision Engineering Protocol'),
-    ('We’ll Review Your Enquiry', '1. Technical Consultation & Feasibility'),
-    ('We\'ll Review Your Enquiry', '1. Technical Consultation & Feasibility'),
+    ('A considered process built around you', 'The Atelier Engineering Protocol'),
+    ('We’ll Review Your Enquiry', '1. Technical Consultation & Architecture'),
+    ('We\'ll Review Your Enquiry', '1. Technical Consultation & Architecture'),
     ('Our team will review your details and get back to you to learn more about your vision and goals.',
-     'Our master technicians analyze your vehicle platform dynamics, styling targets, and bespoke component tolerances.'),
-    ('Discovery Call Or Studio Visit', '2. Studio Immersion & Spec Finalization'),
+     'Our master technicians evaluate vehicle platform dynamics, styling targets, and precision component tolerances.'),
+    ('Discovery Call Or Studio Visit', '2. Studio Immersion & Spec Harmonization'),
     ('We’ll arrange a call of meeting to explore ideas, expectations and potential solutions',
-     'Experience physical carbon swatches, forged wheel profiles, and acoustic sound clips in-studio or via private consultation.'),
+     'Experience physical carbon swatches, bespoke forged profiles, and acoustic exhaust dynamics in-studio or private consultation.'),
     ('We\'ll arrange a call of meeting to explore ideas, expectations and potential solutions',
-     'Experience physical carbon swatches, forged wheel profiles, and acoustic sound clips in-studio or via private consultation.'),
-    ('Tailored Proposal Delivered', '3. Blueprint & Build Allocation'),
+     'Experience physical carbon swatches, bespoke forged profiles, and acoustic exhaust dynamics in-studio or private consultation.'),
+    ('Tailored Proposal Delivered', '3. Blueprint & Atelier Allocation'),
     ('You’ll receive a bespoke proposal outlining the approach, timeline and investment required.',
-     'Receive an exhaustive technical specification breakdown, 3D visualization render, production timeline, and dedicated bay allocation.'),
+     'Receive an exhaustive technical specification blueprint, 3D visualization render, production timeline, and dedicated atelier allocation.'),
     ('You\'ll receive a bespoke proposal outlining the approach, timeline and investment required.',
-     'Receive an exhaustive technical specification breakdown, 3D visualization render, production timeline, and dedicated bay allocation.'),
+     'Receive an exhaustive technical specification blueprint, 3D visualization render, production timeline, and dedicated atelier allocation.'),
 
     # 9. Titles & Meta Tags
     ('Bespoke Vehicle Builds &amp; Styling', 'Bespoke Supercar Builds &amp; Performance Styling'),
@@ -1843,7 +1843,7 @@ for cfile in glob.glob(os.path.join(DEST_DIR, '_next/static/chunks/*.js')):
         ('We don’t modify vehicles', 'We do not alter vehicles'),
         ('We don\'t modify vehicles', 'We do not alter vehicles'),
         ('We build them for you', 'We craft them for you'),
-        ('Refuse Ordinary', 'Refuse Standard'),
+        ('Refuse Ordinary', 'Defy Standard'),
         ('Our Approach To Every Build', 'Our Approach To Every Project'),
         ('Every decision is intentional, every detail has purpose based on your taste, your lifestyle, and your standards.',
          'Every choice is deliberate, every detail holds purpose tailored to your taste, your lifestyle, and your standard.'),
@@ -1852,7 +1852,7 @@ for cfile in glob.glob(os.path.join(DEST_DIR, '_next/static/chunks/*.js')):
         ('Bespoke vehicles built on distinction, desire, and identity. not simply to modify vehicles, but to reimagine them as objects of distinction.',
          'Raw performance re-engineered with surgical craft and power. Built for drivers who refuse stock, creating icons of pure individuality.'),
         ('Bespoke vehicles built on distinction, desire, and identity. not simply to be modified.',
-         'Raw performance re-engineered with surgical craft. Built for those who refuse stock.'),
+         'Bespoke performance engineered with surgical craft. Crafted for those who command more.'),
         ('A luxury automotive atelier for bespoke styling, performance and craftsmanship.',
          'An elite automotive atelier engineering bespoke widebody styling, forged carbon aero, and race-bred performance modifications.'),
         ('Mumbai Atelier and the Delhi NCR Studio', 'London and across the UK'),
