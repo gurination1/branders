@@ -72,18 +72,23 @@ const server = http.createServer((req, res) => {
         'Accept-Ranges': 'bytes',
         'Content-Length': chunksize,
         'Content-Type': contentType,
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'public, max-age=31536000, immutable'
       });
       return fs.createReadStream(filePath, { start, end }).pipe(res);
     }
 
-    // Static immutable headers for fonts and media
+    // Static immutable headers for fonts, videos, and media
     const headers = {
       'Content-Type': contentType,
       'Access-Control-Allow-Origin': '*',
     };
 
-    headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+    if (ext === '.html') {
+      headers['Cache-Control'] = 'no-cache, must-revalidate';
+    } else {
+      headers['Cache-Control'] = 'public, max-age=31536000, immutable';
+    }
 
     res.writeHead(200, headers);
     fs.createReadStream(filePath).pipe(res);

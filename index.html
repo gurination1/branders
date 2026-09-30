@@ -1402,6 +1402,34 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
       heroWrapper.appendChild(scrollVideo);
       heroWrapper.appendChild(introVideo);
 
+      scrollVideo.setAttribute("muted", "");
+      scrollVideo.setAttribute("playsinline", "");
+      scrollVideo.setAttribute("webkit-playsinline", "");
+      scrollVideo.setAttribute("disablepictureinpicture", "");
+      scrollVideo.setAttribute("disableRemotePlayback", "");
+
+      scrollVideo.addEventListener("seeked", () => {
+        isSeeking = false;
+        if (nextSeekTarget >= 0) {
+          const t = nextSeekTarget;
+          nextSeekTarget = -1;
+          triggerSeek(t);
+        }
+      });
+
+      introVideo.setAttribute("muted", "");
+      introVideo.setAttribute("playsinline", "");
+      introVideo.setAttribute("webkit-playsinline", "");
+      introVideo.setAttribute("disablepictureinpicture", "");
+      introVideo.setAttribute("disableRemotePlayback", "");
+
+      // Smooth pause on final frame before ended event
+      introVideo.addEventListener("timeupdate", () => {
+        if (introVideo.duration && introVideo.currentTime >= introVideo.duration - 0.05) {
+          introVideo.pause();
+        }
+      });
+
       // Prime scrollVideo buffer for instant decoding
       scrollVideo.load();
     }
@@ -1478,6 +1506,7 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
     lenisContainer.addEventListener("scroll", updateTargetProgress, { passive: true });
   }
 
+  let seekTimeout = null;
   function triggerSeek(time) {
     if (!scrollVideo || !scrollVideo.duration) return;
     isSeeking = true;
@@ -1486,40 +1515,50 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
     } else {
       scrollVideo.currentTime = time;
     }
+    if (seekTimeout) clearTimeout(seekTimeout);
+    seekTimeout = setTimeout(() => {
+      isSeeking = false;
+      if (nextSeekTarget >= 0) {
+        const t = nextSeekTarget;
+        nextSeekTarget = -1;
+        triggerSeek(t);
+      }
+    }, 28);
   }
 
   function renderScrubLoop() {
     updateTargetProgress();
 
-    // Silky smooth lerp matching Lenis momentum
+    // 120Hz-tuned fluid exponential decay lerp
     const diff = targetProgress - currentProgress;
-    if (Math.abs(diff) > 0.001) {
-      currentProgress += diff * 0.32;
+    if (Math.abs(diff) > 0.0005) {
+      currentProgress += diff * 0.22;
     } else {
       currentProgress = targetProgress;
     }
-    if (targetProgress < 0.06 && currentProgress < 0.08) {
+    if (targetProgress < 0.05 && currentProgress < 0.06) {
       currentProgress = 0;
     }
-    if (targetProgress === 1 && currentProgress > 0.95) {
+    if (targetProgress === 1 && currentProgress > 0.96) {
       currentProgress = 1;
     }
 
     if (introVideo && scrollVideo) {
-      // Crossfade Blend: Progress 0.00 -> 0.22 (smooth settle at top)
-      const blendStart = 0.06;
-      const blendEnd = 0.22;
+      // Cubic Hermite smoothstep crossfade: Progress 0.04 -> 0.20
+      const blendStart = 0.04;
+      const blendEnd = 0.20;
       if (currentProgress <= blendStart) {
         scrollVideo.style.opacity = "0";
         introVideo.style.opacity = "1";
-        if (introVideo.paused && introVideo.currentTime < ((introVideo.duration || 4.1) - 0.1) && !introVideo.ended && document.documentElement.classList.contains("site-entered")) {
+        if (introVideo.paused && introVideo.currentTime < ((introVideo.duration || 4.1) - 0.06) && document.documentElement.classList.contains("site-entered")) {
           introVideo.play().catch(() => {});
         }
       } else if (currentProgress < blendEnd) {
-        const ratio = (currentProgress - blendStart) / (blendEnd - blendStart);
-        scrollVideo.style.opacity = ratio.toFixed(4);
-        introVideo.style.opacity = (1 - ratio).toFixed(4);
-        if (introVideo.paused && introVideo.currentTime < ((introVideo.duration || 4.1) - 0.1) && !introVideo.ended && document.documentElement.classList.contains("site-entered")) {
+        const t = (currentProgress - blendStart) / (blendEnd - blendStart);
+        const smoothRatio = t * t * (3 - 2 * t);
+        scrollVideo.style.opacity = smoothRatio.toFixed(4);
+        introVideo.style.opacity = (1 - smoothRatio).toFixed(4);
+        if (introVideo.paused && introVideo.currentTime < ((introVideo.duration || 4.1) - 0.06) && document.documentElement.classList.contains("site-entered")) {
           introVideo.play().catch(() => {});
         }
       } else {
@@ -1528,10 +1567,10 @@ $RC=function(a,b){if(b=document.getElementById(b))(a=document.getElementById(a))
         if (!introVideo.paused) introVideo.pause();
       }
 
-      // Non-blocking seek on all-intra video stream
+      // Frame-accurate non-blocking seek on all-intra video stream
       if (scrollVideo.duration) {
-        const targetTime = Math.min(scrollVideo.duration - 0.04, Math.max(0, currentProgress * scrollVideo.duration));
-        if (Math.abs(scrollVideo.currentTime - targetTime) > 0.025) {
+        const targetTime = Math.min(scrollVideo.duration - 0.03, Math.max(0, currentProgress * scrollVideo.duration));
+        if (Math.abs(scrollVideo.currentTime - targetTime) > 0.016) {
           if (!isSeeking && !scrollVideo.seeking) {
             triggerSeek(targetTime);
           } else {
